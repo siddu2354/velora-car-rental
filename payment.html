@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>VELORA — Payment</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            background: #050505;
+
+            color: #ffffff;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+
+        /* ==========================================
+           TOP BAR
+           ========================================== */
+
+        .topbar {
+
+            height: 70px;
+
+            padding: 0 45px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            background: #050505;
+
+            border-bottom:
+                1px solid #222222;
+        }
+
+
+        .logo {
+
+            font-size: 20px;
+
+            font-weight: 900;
+
+            letter-spacing: 5px;
+        }
+
+
+        /* ==========================================
+           PAGE
+           ========================================== */
+
+        .page {
+
+            width: 90%;
+
+            max-width: 1000px;
+
+            margin: 65px auto 100px;
+        }
+
+
+        .eyebrow {
+
+            margin: 0 0 18px;
+
+            color: #777777;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            letter-spacing: 4px;
+        }
+
+
+        h1 {
+
+            margin: 0;
+
+            font-size:
+                clamp(45px, 7vw, 80px);
+
+            line-height: .95;
+
+            letter-spacing: -4px;
+
+            font-weight: 900;
+        }
+
+
+        /* ==========================================
+           PAYMENT LAYOUT
+           ========================================== */
+
+        .payment-layout {
+
+            margin-top: 45px;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 25px;
+        }
+
+
+        .card {
+
+            padding: 35px;
+
+            background: #101010;
+
+            border:
+                1px solid #292929;
+
+            border-radius: 10px;
+        }
+
+
+        .card-title {
+
+            margin: 0 0 25px;
+
+            color: #d4af37;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            letter-spacing: 3px;
+        }
+
+
+        /* ==========================================
+           BOOKING SUMMARY
+           ========================================== */
+
+        .summary-row {
+
+            padding: 17px 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            border-bottom:
+                1px solid #222222;
+        }
+
+
+        .summary-row:last-child {
+
+            border-bottom: none;
+        }
+
+
+        .summary-label {
+
+            color: #777777;
+
+            font-size: 11px;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+        }
+
+
+        .summary-value {
+
+            color: #ffffff;
+
+            font-size: 14px;
+
+            text-align: right;
+        }
+
+
+        .total-row {
+
+            margin-top: 10px;
+
+            padding-top: 25px;
+
+            border-top:
+                1px solid #444444;
+        }
+
+
+        .total-label {
+
+            color: #d4af37;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+        }
+
+
+        .total-value {
+
+            color: #d4af37;
+
+            font-size: 25px;
+
+            font-weight: bold;
+        }
+
+
+        /* ==========================================
+           TEST PAYMENT
+           ========================================== */
+
+        .test-notice {
+
+            margin-bottom: 25px;
+
+            padding: 15px;
+
+            background: #0b0b0b;
+
+            border-left:
+                2px solid #d4af37;
+
+            color: #999999;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+
+        .test-notice strong {
+
+            color: #ffffff;
+        }
+
+
+        .form-group {
+
+            margin-bottom: 20px;
+        }
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #777777;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+        }
+
+
+        input {
+
+            width: 100%;
+
+            height: 48px;
+
+            padding: 0 14px;
+
+            background: #080808;
+
+            color: #ffffff;
+
+            border:
+                1px solid #333333;
+
+            border-radius: 4px;
+
+            outline: none;
+
+            font-size: 14px;
+        }
+
+
+        input:focus {
+
+            border-color:
+                #d4af37;
+        }
+
+
+        .pay-button {
+
+            width: 100%;
+
+            height: 52px;
+
+            margin-top: 10px;
+
+            background: #d4af37;
+
+            color: #000000;
+
+            border: none;
+
+            border-radius: 4px;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+            letter-spacing: 2px;
+
+            cursor: pointer;
+
+            transition: .25s ease;
+        }
+
+
+        .pay-button:hover {
+
+            background: #ffffff;
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        .back-button {
+
+            width: 100%;
+
+            height: 48px;
+
+            margin-top: 12px;
+
+            background: transparent;
+
+            color: #ffffff;
+
+            border:
+                1px solid #444444;
+
+            border-radius: 4px;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+
+            cursor: pointer;
+        }
+
+
+        .back-button:hover {
+
+            background: #ffffff;
+
+            color: #000000;
+        }
+
+
+        /* ==========================================
+           ERROR
+           ========================================== */
+
+        .error {
+
+            display: none;
+
+            padding: 20px;
+
+            margin-top: 30px;
+
+            background: #120909;
+
+            border:
+                1px solid #522222;
+
+            color: #dd8888;
+
+            line-height: 1.6;
+
+            font-size: 13px;
+        }
+
+
+        /* ==========================================
+           MOBILE
+           ========================================== */
+
+        @media (max-width: 750px) {
+
+            .topbar {
+
+                padding: 0 20px;
+            }
+
+
+            .page {
+
+                width: 92%;
+
+                margin-top: 45px;
+            }
+
+
+            .payment-layout {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .card {
+
+                padding: 25px;
+            }
+
+
+            h1 {
+
+                font-size: 52px;
+
+                letter-spacing: -2px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==========================================
+         TOP BAR
+         ========================================== -->
+
+    <header class="topbar">
+
+        <div class="logo">
+            VELORA
+        </div>
+
+    </header>
+
+
+
+    <!-- ==========================================
+         PAGE
+         ========================================== -->
+
+    <main class="page">
+
+
+        <p class="eyebrow">
+            SECURE CHECKOUT
+        </p>
+
+
+        <h1>
+            PAYMENT
+        </h1>
+
+
+
+        <div
+            id="error"
+            class="error"
+        >
+            Booking information could not be loaded.
+        </div>
+
+
+
+        <div class="payment-layout">
+
+
+            <!-- ==================================
+                 BOOKING SUMMARY
+                 ================================== -->
+
+            <section class="card">
+
+                <p class="card-title">
+                    BOOKING SUMMARY
+                </p>
+
+
+                <div class="summary-row">
+
+                    <span class="summary-label">
+                        Booking ID
+                    </span>
+
+                    <span
+                        class="summary-value"
+                        id="booking-id"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span class="summary-label">
+                        Customer
+                    </span>
+
+                    <span
+                        class="summary-value"
+                        id="customer"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span class="summary-label">
+                        Car
+                    </span>
+
+                    <span
+                        class="summary-value"
+                        id="car"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span class="summary-label">
+                        Rental Dates
+                    </span>
+
+                    <span
+                        class="summary-value"
+                        id="dates"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span class="summary-label">
+                        Route
+                    </span>
+
+                    <span
+                        class="summary-value"
+                        id="route"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="summary-row total-row"
+                >
+
+                    <span class="total-label">
+                        TOTAL
+                    </span>
+
+                    <span
+                        class="total-value"
+                        id="total"
+                    >
+                        ₹0
+                    </span>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ==================================
+                 PAYMENT FORM
+                 ================================== -->
+
+            <section class="card">
+
+                <p class="card-title">
+                    TEST PAYMENT
+                </p>
+
+
+                <div class="test-notice">
+
+                    <strong>
+                        DEMO PAYMENT MODE
+                    </strong>
+
+                    <br>
+
+                    This is a test payment for
+                    the Velora college project.
+                    No real money will be charged.
+
+                </div>
+
+
+                <form id="payment-form">
+
+
+                    <div class="form-group">
+
+                        <label for="card-name">
+                            CARD HOLDER NAME
+                        </label>
+
+                        <input
+                            type="text"
+                            id="card-name"
+                            placeholder="Enter card holder name"
+                            autocomplete="off"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="card-number">
+                            CARD NUMBER
+                        </label>
+
+                        <input
+                            type="text"
+                            id="card-number"
+                            placeholder="1234 5678 9012 3456"
+                            maxlength="19"
+                            autocomplete="off"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div
+                        style="
+                            display:grid;
+                            grid-template-columns:
+                            1fr 1fr;
+                            gap:15px;
+                        "
+                    >
+
+
+                        <div class="form-group">
+
+                            <label for="expiry">
+                                EXPIRY
+                            </label>
+
+                            <input
+                                type="text"
+                                id="expiry"
+                                placeholder="MM/YY"
+                                maxlength="5"
+                                autocomplete="off"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label for="cvv">
+                                CVV
+                            </label>
+
+                            <input
+                                type="password"
+                                id="cvv"
+                                placeholder="123"
+                                maxlength="3"
+                                autocomplete="off"
+                                required
+                            >
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <button
+                        type="submit"
+                        class="pay-button"
+                        id="pay-button"
+                    >
+                        PAY NOW
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="back-button"
+                        id="back-button"
+                    >
+                        BACK TO REQUEST
+                    </button>
+
+
+                </form>
+
+            </section>
+
+
+        </div>
+
+
+    </main>
+
+
+
+    <script>
+
+
+        /* ==========================================
+           LOAD BOOKING
+           ========================================== */
+
+        function getBooking() {
+
+            try {
+
+                return JSON.parse(
+                    localStorage.getItem(
+                        "veloraBooking"
+                    )
+                ) || null;
+
+            } catch (error) {
+
+                return null;
+
+            }
+
+        }
+
+
+
+        const booking =
+            getBooking();
+
+
+
+        /* ==========================================
+           CHECK BOOKING
+           ========================================== */
+
+        if (
+            !booking ||
+            String(
+                booking.status
+            ).toUpperCase() !== "APPROVED"
+        ) {
+
+
+            document
+                .getElementById("error")
+                .style.display =
+                "block";
+
+
+            document
+                .getElementById("error")
+                .textContent =
+                "Payment is available only after the Velora owner approves your booking.";
+
+
+            document
+                .getElementById("pay-button")
+                .disabled = true;
+
+
+        } else {
+
+
+            /* ======================================
+               BOOKING INFORMATION
+               ====================================== */
+
+            document
+                .getElementById("booking-id")
+                .textContent =
+                booking.bookingId || "-";
+
+
+            document
+                .getElementById("customer")
+                .textContent =
+                booking.customerName || "-";
+
+
+            document
+                .getElementById("car")
+                .textContent =
+                booking.carName || "-";
+
+
+            document
+                .getElementById("dates")
+                .textContent =
+                booking.fromDate &&
+                booking.toDate
+                    ? booking.fromDate +
+                      " → " +
+                      booking.toDate
+                    : "-";
+
+
+            document
+                .getElementById("route")
+                .textContent =
+                (booking.pickup || "-") +
+                " → " +
+                (booking.drop || "-");
+
+
+            const total =
+                Number(
+                    booking.total || 0
+                );
+
+
+            document
+                .getElementById("total")
+                .textContent =
+                "₹" +
+                total.toLocaleString(
+                    "en-IN"
+                );
+
+        }
+
+
+
+        /* ==========================================
+           CARD NUMBER FORMAT
+           ========================================== */
+
+        document
+            .getElementById("card-number")
+            .addEventListener(
+                "input",
+                function () {
+
+                    let value =
+                        this.value
+                            .replace(
+                                /\D/g,
+                                ""
+                            )
+                            .slice(
+                                0,
+                                16
+                            );
+
+
+                    this.value =
+                        value.replace(
+                            /(.{4})/g,
+                            "$1 "
+                        ).trim();
+
+                }
+            );
+
+
+
+        /* ==========================================
+           EXPIRY FORMAT
+           ========================================== */
+
+        document
+            .getElementById("expiry")
+            .addEventListener(
+                "input",
+                function () {
+
+                    let value =
+                        this.value
+                            .replace(
+                                /\D/g,
+                                ""
+                            )
+                            .slice(
+                                0,
+                                4
+                            );
+
+
+                    if (
+                        value.length > 2
+                    ) {
+
+                        value =
+                            value.slice(
+                                0,
+                                2
+                            ) +
+                            "/" +
+                            value.slice(
+                                2
+                            );
+
+                    }
+
+
+                    this.value =
+                        value;
+
+                }
+            );
+
+
+
+        /* ==========================================
+           CVV
+           ========================================== */
+
+        document
+            .getElementById("cvv")
+            .addEventListener(
+                "input",
+                function () {
+
+                    this.value =
+                        this.value
+                            .replace(
+                                /\D/g,
+                                ""
+                            )
+                            .slice(
+                                0,
+                                3
+                            );
+
+                }
+            );
+
+
+
+        /* ==========================================
+           PAYMENT SUBMIT
+           ========================================== */
+
+        document
+            .getElementById("payment-form")
+            .addEventListener(
+                "submit",
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    if (
+                        !booking ||
+                        String(
+                            booking.status
+                        ).toUpperCase() !==
+                        "APPROVED"
+                    ) {
+
+                        alert(
+                            "Payment is available only after owner approval."
+                        );
+
+                        return;
+                    }
+
+
+
+                    const cardName =
+                        document
+                            .getElementById(
+                                "card-name"
+                            )
+                            .value
+                            .trim();
+
+
+                    const cardNumber =
+                        document
+                            .getElementById(
+                                "card-number"
+                            )
+                            .value
+                            .replace(
+                                /\s/g,
+                                ""
+                            );
+
+
+                    const expiry =
+                        document
+                            .getElementById(
+                                "expiry"
+                            )
+                            .value
+                            .trim();
+
+
+                    const cvv =
+                        document
+                            .getElementById(
+                                "cvv"
+                            )
+                            .value
+                            .trim();
+
+
+
+                    if (
+                        !cardName ||
+                        !cardNumber ||
+                        !expiry ||
+                        !cvv
+                    ) {
+
+                        alert(
+                            "Please fill in all payment details."
+                        );
+
+                        return;
+                    }
+
+
+
+                    if (
+                        cardNumber.length !== 16
+                    ) {
+
+                        alert(
+                            "Please enter a 16-digit test card number."
+                        );
+
+                        return;
+                    }
+
+
+
+                    if (
+                        !/^\d{2}\/\d{2}$/
+                            .test(expiry)
+                    ) {
+
+                        alert(
+                            "Please enter expiry in MM/YY format."
+                        );
+
+                        return;
+                    }
+
+
+
+                    if (
+                        cvv.length !== 3
+                    ) {
+
+                        alert(
+                            "Please enter a 3-digit test CVV."
+                        );
+
+                        return;
+                    }
+
+
+
+                    /* ==================================
+                       DEMO PAYMENT SUCCESS
+                       ================================== */
+
+                    booking.status =
+                        "PAID";
+
+
+                    booking.paymentStatus =
+                        "PAID";
+
+
+                    booking.paymentMethod =
+                        "TEST CARD";
+
+
+                    booking.paidAt =
+                        new Date()
+                            .toISOString();
+
+
+
+                    localStorage.setItem(
+                        "veloraBooking",
+                        JSON.stringify(
+                            booking
+                        )
+                    );
+
+
+
+                    /* ==================================
+                       UPDATE OWNER REQUEST
+                       ================================== */
+
+                    try {
+
+                        const requests =
+                            JSON.parse(
+                                localStorage.getItem(
+                                    "veloraBookingRequests"
+                                )
+                            ) || [];
+
+
+                        const index =
+                            requests.findIndex(
+                                function (
+                                    request
+                                ) {
+
+                                    return request &&
+                                        String(
+                                            request.bookingId
+                                        ) ===
+                                        String(
+                                            booking.bookingId
+                                        );
+
+                                }
+                            );
+
+
+                        if (index !== -1) {
+
+                            requests[index].status =
+                                "PAID";
+
+
+                            requests[index].paymentStatus =
+                                "PAID";
+
+
+                            requests[index].paymentMethod =
+                                "TEST CARD";
+
+
+                            requests[index].paidAt =
+                                booking.paidAt;
+
+
+                            localStorage.setItem(
+                                "veloraBookingRequests",
+                                JSON.stringify(
+                                    requests
+                                )
+                            );
+
+                        }
+
+                    } catch (error) {
+
+                        console.error(
+                            "PAYMENT UPDATE ERROR:",
+                            error
+                        );
+
+                    }
+
+
+
+                    alert(
+                        "Payment successful! Your Velora booking is now confirmed."
+                    );
+
+
+                    window.location.href =
+                        "/booking-confirmation.html";
+
+                }
+            );
+
+
+
+        /* ==========================================
+           BACK
+           ========================================== */
+
+        document
+            .getElementById("back-button")
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "/request-submitted.html";
+
+                }
+            );
+
+    </script>
+
+</body>
+
+</html>

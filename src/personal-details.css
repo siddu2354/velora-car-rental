@@ -1,0 +1,447 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    background: #050505;
+    color: #ffffff;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    min-height: 100vh;
+}
+
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar {
+    width: 100%;
+    height: 68px;
+
+    padding: 0 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #050505;
+
+    border-bottom: 1px solid #242424;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 1000;
+}
+
+.logo {
+    color: #ffffff;
+
+    font-size: 20px;
+    font-weight: 900;
+
+    letter-spacing: 5px;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+}
+
+#customer-name {
+    color: #888888;
+
+    font-size: 13px;
+}
+
+#logout-btn {
+    height: 36px;
+
+    padding: 0 18px;
+
+    background: transparent;
+
+    color: #ffffff;
+
+    border: 1px solid #444444;
+    border-radius: 4px;
+
+    font-size: 10px;
+    font-weight: bold;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+#logout-btn:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+
+/* =========================
+   MAIN PAGE
+========================= */
+
+.details-page {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 70px 40px 100px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 80px;
+
+    align-items: center;
+}
+
+
+/* =========================
+   LEFT SECTION
+========================= */
+
+.customer-section {
+    padding: 20px 0;
+}
+
+.eyebrow {
+    margin: 0 0 25px;
+
+    color: #777777;
+
+    font-size: 10px;
+    font-weight: bold;
+
+    letter-spacing: 6px;
+}
+
+.customer-section h1 {
+    margin: 0;
+
+    color: #d4af37;
+
+    font-size: clamp(55px, 6vw, 90px);
+
+    font-weight: 900;
+
+    line-height: 0.95;
+
+    letter-spacing: -4px;
+
+    word-break: break-word;
+}
+
+.description {
+    max-width: 470px;
+
+    margin: 30px 0 0;
+
+    color: #777777;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================
+   SELECTED VEHICLE
+========================= */
+
+.selected-vehicle {
+    margin-top: 65px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid #292929;
+}
+
+.vehicle-label {
+    margin: 0 0 15px;
+
+    color: #777777;
+
+    font-size: 9px;
+    font-weight: bold;
+
+    letter-spacing: 5px;
+}
+
+.selected-vehicle h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 25px;
+    font-weight: 800;
+}
+
+#car-price {
+    margin: 10px 0 0;
+
+    color: #d4af37;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   FORM CARD
+========================= */
+
+.form-card {
+    padding: 40px 36px;
+
+    background: #111111;
+
+    border: 1px solid #292929;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.form-eyebrow {
+    margin: 0 0 15px;
+
+    color: #777777;
+
+    font-size: 9px;
+    font-weight: bold;
+
+    letter-spacing: 5px;
+}
+
+.form-card h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 38px;
+    font-weight: 900;
+
+    letter-spacing: -1px;
+}
+
+.form-description {
+    margin: 12px 0 35px;
+
+    color: #777777;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================
+   FORM GROUP
+========================= */
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #777777;
+
+    font-size: 9px;
+    font-weight: bold;
+
+    letter-spacing: 3px;
+}
+
+.form-group input {
+    width: 100%;
+
+    height: 48px;
+
+    padding: 0 14px;
+
+    background: #070707;
+
+    color: #ffffff;
+
+    border: 1px solid #333333;
+
+    border-radius: 5px;
+
+    outline: none;
+
+    font-size: 13px;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.form-group input::placeholder {
+    color: #555555;
+}
+
+.form-group input:focus {
+    border-color: #d4af37;
+
+    box-shadow:
+        0 0 0 1px rgba(212, 175, 55, 0.15);
+}
+
+
+/* =========================
+   CONTINUE BUTTON
+========================= */
+
+.continue-button {
+    width: 100%;
+
+    height: 48px;
+
+    margin-top: 8px;
+
+    background: #ffffff;
+
+    color: #000000;
+
+    border: none;
+
+    border-radius: 5px;
+
+    font-size: 10px;
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.continue-button:hover {
+    background: #d4af37;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.back-button {
+    display: block;
+
+    margin: 24px auto 0;
+
+    background: transparent;
+
+    color: #777777;
+
+    border: none;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.back-button:hover {
+    color: #d4af37;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+    .details-page {
+        grid-template-columns: 1fr;
+
+        gap: 45px;
+
+        padding: 60px 30px 80px;
+    }
+
+    .customer-section {
+        text-align: center;
+    }
+
+    .description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .selected-vehicle {
+        text-align: left;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .topbar {
+        padding: 0 18px;
+    }
+
+    #customer-name {
+        display: none;
+    }
+
+    .details-page {
+        padding: 45px 18px 70px;
+
+        gap: 35px;
+    }
+
+    .customer-section h1 {
+        font-size: 52px;
+
+        letter-spacing: -3px;
+    }
+
+    .selected-vehicle {
+        margin-top: 45px;
+    }
+
+    .form-card {
+        padding: 30px 22px;
+    }
+
+    .form-card h2 {
+        font-size: 32px;
+    }
+}

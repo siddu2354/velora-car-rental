@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VELORA — Choose Your Car</title>
+
+    <link rel="stylesheet" href="/src/cars.css">
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+
+        <div class="logo">
+            VELORA
+        </div>
+
+        <div class="topbar-right">
+
+            <span id="customer-name"></span>
+
+            <button id="logout-btn">
+                LOGOUT
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <h1>
+            CHOOSE<br>
+            YOUR CAR.
+        </h1>
+
+    </section>
+
+
+    <!-- CARS -->
+    <section class="cars-section">
+
+        <!-- TOYOTA FORTUNER -->
+        <article class="car-card">
+
+            <div class="car-image">
+                <img src="/cars/fortuner.jpg" alt="Toyota Fortuner">
+            </div>
+
+            <div class="car-info">
+
+                <p class="car-type">
+                    SUV
+                </p>
+
+                <h2>
+                    Toyota Fortuner
+                </h2>
+
+                <div class="car-bottom">
+
+                    <div class="price-area">
+                        <span class="price">₹4,500</span>
+                        <span class="per">/ day</span>
+                    </div>
+
+                    <button
+                        class="select-car"
+                        data-name="Toyota Fortuner"
+                        data-price="4500">
+                        SELECT CAR
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- HYUNDAI i20 -->
+        <article class="car-card">
+
+            <div class="car-image">
+                <img src="/cars/i20.jpg" alt="Hyundai i20 N Line">
+            </div>
+
+            <div class="car-info">
+
+                <p class="car-type">
+                    HATCHBACK
+                </p>
+
+                <h2>
+                    Hyundai i20 N Line
+                </h2>
+
+                <div class="car-bottom">
+
+                    <div class="price-area">
+                        <span class="price">₹2,500</span>
+                        <span class="per">/ day</span>
+                    </div>
+
+                    <button
+                        class="select-car"
+                        data-name="Hyundai i20 N Line"
+                        data-price="2500">
+                        SELECT CAR
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- MARUTI DZIRE -->
+        <article class="car-card">
+
+            <div class="car-image">
+                <img src="/cars/dzire.jpg" alt="Maruti Suzuki Dzire">
+            </div>
+
+            <div class="car-info">
+
+                <p class="car-type">
+                    SEDAN
+                </p>
+
+                <h2>
+                    Maruti Suzuki Dzire
+                </h2>
+
+                <div class="car-bottom">
+
+                    <div class="price-area">
+                        <span class="price">₹2,200</span>
+                        <span class="per">/ day</span>
+                    </div>
+
+                    <button
+                        class="select-car"
+                        data-name="Maruti Suzuki Dzire"
+                        data-price="2200">
+                        SELECT CAR
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- TOYOTA INNOVA -->
+        <article class="car-card">
+
+            <div class="car-image">
+                <img src="/cars/innova.jpg" alt="Toyota Innova Crysta">
+            </div>
+
+            <div class="car-info">
+
+                <p class="car-type">
+                    MPV
+                </p>
+
+                <h2>
+                    Toyota Innova Crysta
+                </h2>
+
+                <div class="car-bottom">
+
+                    <div class="price-area">
+                        <span class="price">₹3,500</span>
+                        <span class="per">/ day</span>
+                    </div>
+
+                    <button
+                        class="select-car"
+                        data-name="Toyota Innova Crysta"
+                        data-price="3500">
+                        SELECT CAR
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- KIA SELTOS -->
+        <article class="car-card">
+
+            <div class="car-image">
+                <img src="/cars/seltos.jpg" alt="Kia Seltos">
+            </div>
+
+            <div class="car-info">
+
+                <p class="car-type">
+                    SUV
+                </p>
+
+                <h2>
+                    Kia Seltos
+                </h2>
+
+                <div class="car-bottom">
+
+                    <div class="price-area">
+                        <span class="price">₹3,000</span>
+                        <span class="per">/ day</span>
+                    </div>
+
+                    <button
+                        class="select-car"
+                        data-name="Kia Seltos"
+                        data-price="3000">
+                        SELECT CAR
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- MAHINDRA THAR -->
+        <article class="car-card">
+
+            <div class="car-image">
+                <img src="/cars/thar-roxx.jpg" alt="Mahindra Thar Roxx">
+            </div>
+
+            <div class="car-info">
+
+                <p class="car-type">
+                    SUV
+                </p>
+
+                <h2>
+                    Mahindra Thar Roxx
+                </h2>
+
+                <div class="car-bottom">
+
+                    <div class="price-area">
+                        <span class="price">₹3,500</span>
+                        <span class="per">/ day</span>
+                    </div>
+
+                    <button
+                        class="select-car"
+                        data-name="Mahindra Thar Roxx"
+                        data-price="3500">
+                        SELECT CAR
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    </section>
+
+
+    <script type="module" src="/src/cars.js"></script>
+
+</body>
+
+</html>

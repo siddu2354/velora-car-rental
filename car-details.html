@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>VELORA — Booking Details</title>
+
+    <link
+        rel="stylesheet"
+        href="/src/car-details.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- ==========================================
+         TOP BAR
+    =========================================== -->
+
+    <header class="topbar">
+
+        <div class="logo">
+            VELORA
+        </div>
+
+        <div class="topbar-right">
+
+            <span id="customer-name">
+                Welcome
+            </span>
+
+            <button id="logout-btn">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ==========================================
+         MAIN
+    =========================================== -->
+
+    <main class="booking-page">
+
+
+        <!-- ======================================
+             SELECTED CAR
+        ======================================= -->
+
+        <section class="car-preview">
+
+            <p class="eyebrow">
+                YOUR SELECTED CAR
+            </p>
+
+            <h1 id="car-name">
+                Toyota Fortuner
+            </h1>
+
+            <p
+                class="car-category"
+                id="car-category"
+            >
+                PREMIUM SUV
+            </p>
+
+
+            <!-- CAR IMAGE -->
+
+            <div class="car-image-box">
+
+                <img
+                    id="car-image"
+                    src=""
+                    alt="Selected car"
+                >
+
+            </div>
+
+
+            <!-- PRICE -->
+
+            <div class="daily-price">
+
+                <span id="car-price">
+                    ₹8,000
+                </span>
+
+                <span>
+                    / day
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+             BOOKING SECTION
+        ======================================= -->
+
+        <section class="booking-card">
+
+            <p class="eyebrow">
+                BOOK YOUR DRIVE
+            </p>
+
+            <h2>
+                Choose your dates.
+            </h2>
+
+            <p class="booking-description">
+
+                Select the dates for your rental
+                and we'll calculate your total
+                automatically.
+
+            </p>
+
+
+            <!-- FROM DATE -->
+
+            <div class="input-group">
+
+                <label for="from-date">
+                    FROM DATE
+                </label>
+
+                <input
+                    type="date"
+                    id="from-date"
+                >
+
+            </div>
+
+
+            <!-- TO DATE -->
+
+            <div class="input-group">
+
+                <label for="to-date">
+                    TO DATE
+                </label>
+
+                <input
+                    type="date"
+                    id="to-date"
+                >
+
+            </div>
+
+
+            <!-- NUMBER OF DAYS -->
+
+            <div class="days-box">
+
+                <div>
+
+                    <span class="small-label">
+                        NUMBER OF DAYS
+                    </span>
+
+                    <strong id="number-of-days">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- SUMMARY -->
+
+            <div class="summary">
+
+                <div class="summary-row">
+
+                    <span>
+                        Price / day
+                    </span>
+
+                    <strong id="summary-price">
+                        ₹0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Number of days
+                    </span>
+
+                    <strong id="summary-days">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-line"></div>
+
+
+                <div class="summary-total">
+
+                    <span>
+                        TOTAL
+                    </span>
+
+                    <strong id="total-price">
+                        ₹0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- CONFIRM -->
+
+            <button
+                id="confirm-booking"
+                class="confirm-button"
+                disabled
+            >
+                CONFIRM BOOKING
+            </button>
+
+
+            <!-- BACK -->
+
+            <button
+                id="back-button"
+                class="back-button"
+            >
+                ← BACK TO CARS
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="/src/car-details.js"></script>
+
+</body>
+
+</html>

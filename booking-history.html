@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELORA — Booking History</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #050505;
+            color: #fff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topbar {
+            height: 75px;
+            padding: 0 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #292929;
+            background: #080808;
+        }
+
+        .logo {
+            color: #d4af37;
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: 5px;
+        }
+
+        .customer {
+            color: #d4af37;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 45px auto;
+        }
+
+        .heading {
+            margin-bottom: 30px;
+        }
+
+        .heading h1 {
+            color: #d4af37;
+            font-size: 30px;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .heading p {
+            color: #777;
+            font-size: 13px;
+        }
+
+        .booking-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .booking-card {
+            background: #0d0d0d;
+            border: 1px solid #292929;
+            border-left: 3px solid #d4af37;
+            padding: 25px;
+        }
+
+        .booking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #252525;
+            margin-bottom: 20px;
+        }
+
+        .booking-number {
+            color: #d4af37;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            font-weight: bold;
+        }
+
+        .booking-date {
+            color: #666;
+            font-size: 11px;
+        }
+
+        .main-info {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .info label {
+            display: block;
+            color: #666;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+
+        .info strong {
+            color: #fff;
+            font-size: 15px;
+        }
+
+        .route {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .arrow {
+            color: #d4af37;
+        }
+
+        .dates {
+            color: #ddd;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding-top: 18px;
+            border-top: 1px solid #252525;
+        }
+
+        .amount {
+            color: #d4af37;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .statuses {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .status {
+            padding: 7px 12px;
+            border: 1px solid #444;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .status.approved,
+        .status.paid,
+        .status.confirmed {
+            color: #d4af37;
+            border-color: #d4af37;
+        }
+
+        .status.pending {
+            color: #aaa;
+        }
+
+        .status.rejected {
+            color: #ff5555;
+            border-color: #ff5555;
+        }
+
+        .empty {
+            text-align: center;
+            background: #0d0d0d;
+            border: 1px solid #292929;
+            padding: 70px 20px;
+        }
+
+        .empty h2 {
+            color: #d4af37;
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .empty p {
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .home-btn {
+            display: inline-block;
+            padding: 13px 25px;
+            background: #d4af37;
+            color: #000;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+        }
+
+        .home-btn:hover {
+            background: #fff;
+        }
+
+        .actions {
+            margin-top: 35px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-btn {
+            display: inline-block;
+            padding: 13px 22px;
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+        }
+
+        .action-btn:hover {
+            background: #d4af37;
+            color: #000;
+        }
+
+        @media (max-width: 750px) {
+            .main-info {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .booking-header,
+            .bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .statuses {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="logo">VELORA</div>
+    <div class="customer" id="customer-name">CUSTOMER</div>
+</header>
+
+<main class="container">
+
+    <div class="heading">
+        <h1>BOOKING HISTORY</h1>
+        <p>View your previous and current VELORA bookings.</p>
+    </div>
+
+    <div id="booking-list" class="booking-list"></div>
+
+    <div class="actions">
+        <a href="/cars.html" class="action-btn">BOOK ANOTHER CAR</a>
+        <a href="/" class="action-btn">BACK TO HOME</a>
+    </div>
+
+</main>
+
+<script>
+    const bookingList = document.getElementById("booking-list");
+    const customerName = document.getElementById("customer-name");
+
+    const storedUser = localStorage.getItem("veloraUser");
+    const storedBooking = localStorage.getItem("veloraBookingRequests");
+
+    if (storedUser) {
+        try {
+            const user = JSON.parse(storedUser);
+
+            if (user.name) {
+                customerName.textContent = user.name.toUpperCase();
+            }
+        } catch (error) {
+            console.error("USER DATA ERROR:", error);
+        }
+    }
+
+    let bookings = [];
+
+    if (storedBooking) {
+        try {
+            bookings = JSON.parse(storedBooking);
+        } catch (error) {
+            console.error("BOOKING HISTORY ERROR:", error);
+        }
+    }
+
+    if (!Array.isArray(bookings)) {
+        bookings = [];
+    }
+
+    if (storedUser) {
+        try {
+            const user = JSON.parse(storedUser);
+
+            if (user.name) {
+                bookings = bookings.filter(
+                    booking =>
+                        booking.customerName &&
+                        booking.customerName.toLowerCase() ===
+                        user.name.toLowerCase()
+                );
+            }
+        } catch (error) {
+            console.error("CUSTOMER FILTER ERROR:", error);
+        }
+    }
+
+    bookings.sort((a, b) => {
+        return new Date(b.requestedAt || 0) -
+               new Date(a.requestedAt || 0);
+    });
+
+    if (bookings.length === 0) {
+        bookingList.innerHTML = `
+            <div class="empty">
+                <h2>NO BOOKINGS YET</h2>
+                <p>Your booking history will appear here after you make a booking.</p>
+                <a href="/cars.html" class="home-btn">EXPLORE CARS</a>
+            </div>
+        `;
+    } else {
+
+        bookings.forEach((booking) => {
+
+            const status = (booking.status || "PENDING").toUpperCase();
+
+            let statusClass = "pending";
+
+            if (status === "APPROVED") {
+                statusClass = "approved";
+            } else if (status === "PAID") {
+                statusClass = "paid";
+            } else if (status === "CONFIRMED") {
+                statusClass = "confirmed";
+            } else if (status === "REJECTED") {
+                statusClass = "rejected";
+            }
+
+            const requestedDate = booking.requestedAt
+                ? new Date(booking.requestedAt).toLocaleDateString("en-IN")
+                : "---";
+
+            const paymentStatus =
+                booking.paymentStatus === "PAID"
+                    ? "PAID"
+                    : "NOT PAID";
+
+            const paymentClass =
+                booking.paymentStatus === "PAID"
+                    ? "paid"
+                    : "pending";
+
+            const card = document.createElement("div");
+            card.className = "booking-card";
+
+            card.innerHTML = `
+                <div class="booking-header">
+
+                    <div class="booking-number">
+                        BOOKING ID: ${escapeHTML(booking.bookingId || "---")}
+                    </div>
+
+                    <div class="booking-date">
+                        Requested: ${requestedDate}
+                    </div>
+
+                </div>
+
+                <div class="main-info">
+
+                    <div class="info">
+                        <label>Vehicle</label>
+                        <strong>${escapeHTML(booking.carName || "---")}</strong>
+                    </div>
+
+                    <div class="info">
+                        <label>Route</label>
+
+                        <div class="route">
+                            <span>${escapeHTML(booking.pickup || "---")}</span>
+                            <span class="arrow">→</span>
+                            <span>${escapeHTML(booking.drop || "---")}</span>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <label>Rental Period</label>
+
+                        <div class="dates">
+                            ${escapeHTML(booking.fromDate || "---")}
+                            →
+                            ${escapeHTML(booking.toDate || "---")}
+                            <br>
+                            ${booking.days || 0} day(s)
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="bottom">
+
+                    <div class="amount">
+                        ₹${Number(booking.total || 0).toLocaleString("en-IN")}
+                    </div>
+
+                    <div class="statuses">
+
+                        <span class="status ${statusClass}">
+                            ${status}
+                        </span>
+
+                        <span class="status ${paymentClass}">
+                            ${paymentStatus}
+                        </span>
+
+                    </div>
+
+                </div>
+            `;
+
+            bookingList.appendChild(card);
+        });
+    }
+
+    function escapeHTML(value) {
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+</script>
+
+</body>
+</html>

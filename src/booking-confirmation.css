@@ -1,0 +1,496 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+
+    background: #050505;
+    color: #ffffff;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar {
+    width: 100%;
+    height: 70px;
+
+    padding: 0 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: rgba(5, 5, 5, 0.96);
+
+    border-bottom: 1px solid #222222;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 5px;
+}
+
+#home-button {
+    height: 38px;
+
+    padding: 0 18px;
+
+    background: transparent;
+    color: #ffffff;
+
+    border: 1px solid #555555;
+    border-radius: 4px;
+
+    font-size: 10px;
+    font-weight: bold;
+
+    letter-spacing: 1.5px;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+#home-button:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.confirmation-page {
+    width: 90%;
+    max-width: 900px;
+
+    margin: 0 auto;
+
+    padding: 80px 0 100px;
+}
+
+
+/* =========================
+   CONFIRMATION HEADER
+========================= */
+
+.confirmation-card {
+    text-align: center;
+}
+
+.success-icon {
+    width: 58px;
+    height: 58px;
+
+    margin: 0 auto 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #555555;
+    border-radius: 50%;
+
+    font-size: 25px;
+}
+
+.eyebrow {
+    margin: 0 0 18px;
+
+    color: #777777;
+
+    font-size: 10px;
+    font-weight: bold;
+
+    letter-spacing: 4px;
+}
+
+.confirmation-card h1 {
+    margin: 0;
+
+    font-size: clamp(50px, 7vw, 82px);
+
+    line-height: 0.92;
+
+    font-weight: 900;
+
+    letter-spacing: -4px;
+}
+
+.confirmation-card h1 span {
+    color: #777777;
+}
+
+.confirmation-text {
+    max-width: 500px;
+
+    margin: 25px auto 55px;
+
+    color: #777777;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================
+   BILL
+========================= */
+
+.bill {
+    width: 100%;
+
+    text-align: left;
+
+    background: #111111;
+
+    border: 1px solid #292929;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+}
+
+
+/* BILL HEADER */
+
+.bill-header {
+    padding: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #292929;
+}
+
+.bill-label {
+    margin: 0;
+
+    font-size: 18px;
+    font-weight: 900;
+
+    letter-spacing: 4px;
+}
+
+.bill-subtitle {
+    margin: 7px 0 0;
+
+    color: #666666;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+}
+
+.booking-status {
+    padding: 8px 12px;
+
+    border: 1px solid #444444;
+    border-radius: 4px;
+
+    color: #aaaaaa;
+
+    font-size: 9px;
+    font-weight: bold;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* =========================
+   CAR SECTION
+========================= */
+
+.car-section {
+    padding: 30px;
+
+    display: grid;
+
+    grid-template-columns: 260px 1fr;
+
+    gap: 30px;
+
+    align-items: center;
+
+    border-bottom: 1px solid #292929;
+}
+
+.car-image-box {
+    width: 260px;
+    height: 180px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #181818;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.car-image-box img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    padding: 15px;
+}
+
+.small-label {
+    margin: 0 0 10px;
+
+    color: #666666;
+
+    font-size: 9px;
+    font-weight: bold;
+
+    letter-spacing: 2px;
+}
+
+.car-details h2 {
+    margin: 0;
+
+    font-size: 34px;
+
+    line-height: 1.1;
+
+    font-weight: 800;
+
+    letter-spacing: -1.5px;
+}
+
+#car-category {
+    margin: 12px 0 0;
+
+    color: #777777;
+
+    font-size: 10px;
+    font-weight: bold;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================
+   CUSTOMER DETAILS
+========================= */
+
+.customer-section {
+    padding: 30px;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 25px;
+
+    border-bottom: 1px solid #292929;
+}
+
+.detail span {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #666666;
+
+    font-size: 9px;
+    font-weight: bold;
+
+    letter-spacing: 1.5px;
+}
+
+.detail strong {
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   PRICE
+========================= */
+
+.price-section {
+    padding: 30px;
+}
+
+.price-row {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 14px;
+
+    color: #777777;
+
+    font-size: 13px;
+}
+
+.price-row strong {
+    color: #ffffff;
+}
+
+.price-line {
+    width: 100%;
+    height: 1px;
+
+    margin: 22px 0;
+
+    background: #292929;
+}
+
+.total-row {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.total-row span {
+    color: #888888;
+
+    font-size: 11px;
+    font-weight: bold;
+
+    letter-spacing: 2px;
+}
+
+.total-row strong {
+    font-size: 30px;
+
+    font-weight: 900;
+}
+
+
+/* =========================
+   BILL FOOTER
+========================= */
+
+.bill-footer {
+    padding: 18px 30px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    background: #0d0d0d;
+
+    color: #555555;
+
+    font-size: 8px;
+    font-weight: bold;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.primary-button {
+    width: 220px;
+    height: 52px;
+
+    margin-top: 35px;
+
+    background: #ffffff;
+
+    color: #000000;
+
+    border: none;
+
+    border-radius: 5px;
+
+    font-size: 10px;
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.primary-button:hover {
+    background: #dddddd;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .topbar {
+        padding: 0 18px;
+    }
+
+    .confirmation-page {
+        width: 94%;
+
+        padding: 55px 0 70px;
+    }
+
+    .confirmation-card h1 {
+        font-size: 50px;
+
+        letter-spacing: -2px;
+    }
+
+    .confirmation-text {
+        margin-bottom: 40px;
+    }
+
+    .car-section {
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+    }
+
+    .car-image-box {
+        width: 100%;
+        height: 220px;
+    }
+
+    .customer-section {
+        grid-template-columns: 1fr;
+    }
+
+    .total-row strong {
+        font-size: 25px;
+    }
+
+    .primary-button {
+        width: 100%;
+    }
+}

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELORA — Booking Confirmed</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #050505;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .brand {
+            text-align: center;
+            color: #d4af37;
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: 6px;
+            margin-bottom: 35px;
+        }
+
+        .confirmation {
+            background: #0d0d0d;
+            border: 1px solid #333;
+            border-top: 3px solid #d4af37;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .success {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .success-icon {
+            width: 65px;
+            height: 65px;
+            border: 2px solid #d4af37;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            color: #d4af37;
+            font-size: 30px;
+        }
+
+        .success h1 {
+            color: #d4af37;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .success p {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .booking-id {
+            text-align: center;
+            background: #151515;
+            border: 1px solid #333;
+            padding: 18px;
+            margin-bottom: 30px;
+        }
+
+        .booking-id span {
+            display: block;
+            color: #888;
+            font-size: 11px;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .booking-id strong {
+            color: #ffffff;
+            font-size: 22px;
+            letter-spacing: 2px;
+        }
+
+        .section-title {
+            color: #d4af37;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #333;
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+        }
+
+        .details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px 30px;
+            margin-bottom: 30px;
+        }
+
+        .detail {
+            padding-bottom: 12px;
+            border-bottom: 1px solid #222;
+        }
+
+        .detail label {
+            display: block;
+            color: #777;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 7px;
+        }
+
+        .detail value {
+            display: block;
+            color: #ffffff;
+            font-size: 15px;
+        }
+
+        .route {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .location {
+            background: #151515;
+            border: 1px solid #292929;
+            padding: 20px;
+        }
+
+        .location label {
+            display: block;
+            color: #777;
+            font-size: 10px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .location strong {
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .amount-box {
+            background: #151515;
+            border: 1px solid #333;
+            padding: 22px;
+            margin-top: 10px;
+        }
+
+        .amount-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 9px 0;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .amount-row.total {
+            border-top: 1px solid #444;
+            margin-top: 10px;
+            padding-top: 18px;
+            color: #ffffff;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .amount-row.total span:last-child {
+            color: #d4af37;
+        }
+
+        .payment-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #101010;
+            border: 1px solid #333;
+            padding: 16px 18px;
+            margin-top: 20px;
+        }
+
+        .payment-status span:first-child {
+            color: #aaa;
+            font-size: 13px;
+        }
+
+        .paid {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+        }
+
+        button,
+        a {
+            flex: 1;
+            padding: 14px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+        .home-btn {
+            background: #d4af37;
+            color: #000;
+            border: 1px solid #d4af37;
+        }
+
+        .home-btn:hover {
+            background: #ffffff;
+            border-color: #ffffff;
+        }
+
+        .print-btn {
+            background: transparent;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+        }
+
+        .print-btn:hover {
+            background: #d4af37;
+            color: #000;
+        }
+
+        .footer {
+            text-align: center;
+            color: #555;
+            font-size: 11px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 650px) {
+            .confirmation {
+                padding: 25px 20px;
+            }
+
+            .details,
+            .route {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+        }
+
+        @media print {
+            body {
+                background: #ffffff;
+                color: #000000;
+                padding: 0;
+            }
+
+            .confirmation {
+                border: 1px solid #ccc;
+                box-shadow: none;
+            }
+
+            .actions,
+            .footer {
+                display: none;
+            }
+
+            .brand {
+                color: #000000;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="brand">VELORA</div>
+
+    <div class="confirmation">
+
+        <div class="success">
+            <div class="success-icon">✓</div>
+            <h1>BOOKING CONFIRMED</h1>
+            <p>Your payment has been successfully processed.</p>
+        </div>
+
+        <div class="booking-id">
+            <span>BOOKING ID</span>
+            <strong id="booking-id">---</strong>
+        </div>
+
+        <div class="section-title">Customer & Vehicle Details</div>
+
+        <div class="details">
+
+            <div class="detail">
+                <label>Customer</label>
+                <value id="customer-name">---</value>
+            </div>
+
+            <div class="detail">
+                <label>Vehicle</label>
+                <value id="car-name">---</value>
+            </div>
+
+            <div class="detail">
+                <label>From Date</label>
+                <value id="from-date">---</value>
+            </div>
+
+            <div class="detail">
+                <label>To Date</label>
+                <value id="to-date">---</value>
+            </div>
+
+            <div class="detail">
+                <label>Number of Days</label>
+                <value id="days">---</value>
+            </div>
+
+            <div class="detail">
+                <label>Price Per Day</label>
+                <value id="price-per-day">---</value>
+            </div>
+
+        </div>
+
+        <div class="section-title">Trip Details</div>
+
+        <div class="route">
+
+            <div class="location">
+                <label>PICKUP LOCATION</label>
+                <strong id="pickup">---</strong>
+            </div>
+
+            <div class="location">
+                <label>DROP LOCATION</label>
+                <strong id="drop">---</strong>
+            </div>
+
+        </div>
+
+        <div class="section-title">Payment Summary</div>
+
+        <div class="amount-box">
+
+            <div class="amount-row">
+                <span>Rental Charges</span>
+                <span id="rental-charge">₹0</span>
+            </div>
+
+            <div class="amount-row">
+                <span>Payment Method</span>
+                <span id="payment-method">TEST CARD</span>
+            </div>
+
+            <div class="amount-row total">
+                <span>Total Paid</span>
+                <span id="total">₹0</span>
+            </div>
+
+        </div>
+
+        <div class="payment-status">
+            <span>PAYMENT STATUS</span>
+            <span class="paid" id="payment-status">PAID ✓</span>
+        </div>
+
+        <div class="actions">
+            <a href="/" class="home-btn">BACK TO HOME</a>
+            <button class="print-btn" onclick="window.print()">PRINT / SAVE INVOICE</button>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        VELORA Premium Car Rental • Thank you for choosing Velora
+    </div>
+
+</div>
+
+<script>
+    const storedBooking = localStorage.getItem("veloraBooking");
+
+    if (!storedBooking) {
+        alert("No booking information found.");
+        window.location.href = "/";
+    }
+
+    try {
+        const booking = JSON.parse(storedBooking);
+
+        if (booking.status !== "PAID" && booking.status !== "CONFIRMED") {
+            alert("This booking is not confirmed yet.");
+            window.location.href = "/request-submitted.html";
+        }
+
+        document.getElementById("booking-id").textContent =
+            booking.bookingId || "---";
+
+        document.getElementById("customer-name").textContent =
+            booking.customerName || "---";
+
+        document.getElementById("car-name").textContent =
+            booking.carName || "---";
+
+        document.getElementById("from-date").textContent =
+            booking.fromDate || "---";
+
+        document.getElementById("to-date").textContent =
+            booking.toDate || "---";
+
+        document.getElementById("days").textContent =
+            (booking.days || 0) + " day(s)";
+
+        document.getElementById("price-per-day").textContent =
+            "₹" + Number(booking.pricePerDay || 0).toLocaleString("en-IN");
+
+        document.getElementById("pickup").textContent =
+            booking.pickup || "---";
+
+        document.getElementById("drop").textContent =
+            booking.drop || "---";
+
+        document.getElementById("rental-charge").textContent =
+            "₹" + Number(booking.total || 0).toLocaleString("en-IN");
+
+        document.getElementById("total").textContent =
+            "₹" + Number(booking.total || 0).toLocaleString("en-IN");
+
+        document.getElementById("payment-method").textContent =
+            booking.paymentMethod || "TEST CARD";
+
+        document.getElementById("payment-status").textContent =
+            booking.paymentStatus === "PAID" ? "PAID ✓" : "CONFIRMED ✓";
+
+    } catch (error) {
+        console.error("VELORA CONFIRMATION ERROR:", error);
+        alert("Unable to load booking information.");
+        window.location.href = "/";
+    }
+</script>
+
+</body>
+</html>

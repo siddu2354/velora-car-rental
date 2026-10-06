@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VELORA — Owner Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #050505;
+            color: #fff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* =========================
+           SECURITY SCREEN
+           ========================= */
+
+        #security-screen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #050505;
+            padding: 20px;
+        }
+
+        .security-box {
+            width: 100%;
+            max-width: 430px;
+            padding: 45px;
+            background: #0d0d0d;
+            border: 1px solid #292929;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .security-logo {
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: 6px;
+            margin-bottom: 35px;
+        }
+
+        .restricted {
+            color: #777;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            margin-bottom: 12px;
+        }
+
+        .security-box h1 {
+            margin: 0 0 30px;
+            color: #d4af37;
+            font-size: 28px;
+        }
+
+        #secret-code {
+            width: 100%;
+            height: 48px;
+            padding: 0 15px;
+            background: #111;
+            color: #fff;
+            border: 1px solid #444;
+            border-radius: 4px;
+            outline: none;
+            text-align: center;
+            font-size: 18px;
+            letter-spacing: 5px;
+        }
+
+        #secret-code:focus {
+            border-color: #d4af37;
+        }
+
+        #access-btn {
+            width: 100%;
+            height: 48px;
+            margin-top: 15px;
+            background: #d4af37;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            cursor: pointer;
+        }
+
+        #access-btn:hover {
+            background: #fff;
+        }
+
+        #error-message {
+            min-height: 20px;
+            margin-top: 15px;
+            color: #d66;
+            font-size: 12px;
+        }
+
+        /* =========================
+           DASHBOARD
+           ========================= */
+
+        #dashboard {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 72px;
+            padding: 0 45px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #050505;
+            border-bottom: 1px solid #222;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: 900;
+            letter-spacing: 5px;
+        }
+
+        .owner-label {
+            color: #d4af37;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1450px;
+            margin: auto;
+            padding: 55px 0 100px;
+        }
+
+        .welcome {
+            margin-bottom: 45px;
+        }
+
+        .eyebrow {
+            color: #777;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            margin-bottom: 12px;
+        }
+
+        .welcome h1 {
+            margin: 0;
+            font-size: clamp(42px, 6vw, 75px);
+            letter-spacing: -3px;
+        }
+
+        .welcome p {
+            color: #777;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        /* =========================
+           STAT CARDS
+           ========================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 55px;
+        }
+
+        .stat-card {
+            padding: 25px;
+            background: #0d0d0d;
+            border: 1px solid #252525;
+            border-radius: 8px;
+        }
+
+        .stat-label {
+            color: #777;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .stat-value {
+            margin-top: 15px;
+            font-size: 30px;
+            font-weight: 900;
+            color: #d4af37;
+        }
+
+        /* =========================
+           SECTION
+           ========================= */
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
+        .section-title h2 {
+            margin: 0;
+            font-size: 25px;
+        }
+
+        .section-title span {
+            color: #777;
+            font-size: 11px;
+        }
+
+        /* =========================
+           REQUEST CARD
+           ========================= */
+
+        #requests-container {
+            display: grid;
+            gap: 18px;
+        }
+
+        .request-card {
+            background: #0d0d0d;
+            border: 1px solid #252525;
+            border-radius: 10px;
+            padding: 28px;
+        }
+
+        .request-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .request-header h3 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .booking-id {
+            margin-top: 8px;
+            color: #d4af37;
+            font-size: 11px;
+            letter-spacing: 2px;
+        }
+
+        .status {
+            padding: 8px 14px;
+            border: 1px solid #555;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .status.pending {
+            color: #d4af37;
+            border-color: #d4af37;
+        }
+
+        .status.approved {
+            color: #7ddf91;
+            border-color: #7ddf91;
+        }
+
+        .status.paid {
+            color: #d4af37;
+            border-color: #d4af37;
+        }
+
+        .status.rejected {
+            color: #d66;
+            border-color: #d66;
+        }
+
+        .request-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+            padding: 22px 0;
+        }
+
+        .detail {
+            background: #111;
+            padding: 15px;
+        }
+
+        .detail-label {
+            display: block;
+            color: #666;
+            font-size: 9px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            margin-bottom: 7px;
+        }
+
+        .detail-value {
+            color: #fff;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .request-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 22px;
+        }
+
+        .approve-btn,
+        .reject-btn {
+            height: 43px;
+            padding: 0 24px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+        }
+
+        .approve-btn {
+            background: #d4af37;
+            color: #000;
+            border: 1px solid #d4af37;
+        }
+
+        .approve-btn:hover {
+            background: #fff;
+            border-color: #fff;
+        }
+
+        .reject-btn {
+            background: transparent;
+            color: #d66;
+            border: 1px solid #633;
+        }
+
+        .reject-btn:hover {
+            background: #d66;
+            color: #000;
+        }
+
+        .no-requests {
+            padding: 60px 20px;
+            text-align: center;
+            background: #0d0d0d;
+            border: 1px solid #252525;
+            color: #666;
+            border-radius: 10px;
+        }
+
+        /* =========================
+           RESPONSIVE
+           ========================= */
+
+        @media (max-width: 900px) {
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .request-details {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .container {
+                width: 94%;
+                padding-top: 35px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .request-details {
+                grid-template-columns: 1fr;
+            }
+
+            .request-header {
+                flex-direction: column;
+            }
+
+            .request-actions {
+                flex-direction: column;
+            }
+
+            .approve-btn,
+            .reject-btn {
+                width: 100%;
+            }
+
+            .security-box {
+                padding: 30px 22px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- =========================
+     OWNER SECURITY
+     ========================= -->
+
+<div id="security-screen">
+
+    <div class="security-box">
+
+        <div class="security-logo">
+            VELORA
+        </div>
+
+        <div class="restricted">
+            RESTRICTED ACCESS
+        </div>
+
+        <h1>Owner Access</h1>
+
+        <input
+            type="password"
+            id="secret-code"
+            placeholder="ENTER CODE"
+            maxlength="10"
+        >
+
+        <button id="access-btn">
+            ENTER OWNER PANEL
+        </button>
+
+        <div id="error-message"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     OWNER DASHBOARD
+     ========================= -->
+
+<div id="dashboard">
+
+    <header class="topbar">
+
+        <div class="logo">
+            VELORA
+        </div>
+
+        <div class="owner-label">
+            OWNER DASHBOARD
+        </div>
+
+    </header>
+
+
+    <main class="container">
+
+        <section class="welcome">
+
+            <div class="eyebrow">
+                VELORA MANAGEMENT
+            </div>
+
+            <h1>
+                Owner Dashboard
+            </h1>
+
+            <p>
+                Manage cars, rental requests and booking approvals.
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+             STATISTICS
+             ========================= -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    TOTAL CARS
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="total-cars"
+                >
+                    06
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    AVAILABLE CARS
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="available-cars"
+                >
+                    06
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    REQUESTS
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="request-count"
+                >
+                    00
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    REVENUE
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="revenue"
+                >
+                    ₹0
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             BOOKING REQUESTS
+             ========================= -->
+
+        <section>
+
+            <div class="section-title">
+
+                <h2>
+                    Booking Requests
+                </h2>
+
+                <span>
+                    CUSTOMER REQUESTS
+                </span>
+
+            </div>
+
+
+            <div id="requests-container"></div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    /* =========================
+       OWNER SECURITY CODE
+       ========================= */
+
+    const OWNER_SECRET_CODE = "2007";
+
+    const TOTAL_CARS = 6;
+
+
+    const securityScreen =
+        document.getElementById("security-screen");
+
+    const dashboard =
+        document.getElementById("dashboard");
+
+    const secretCode =
+        document.getElementById("secret-code");
+
+    const accessButton =
+        document.getElementById("access-btn");
+
+    const errorMessage =
+        document.getElementById("error-message");
+
+
+    /* =========================
+       OPEN DASHBOARD
+       ========================= */
+
+    function openDashboard() {
+
+        securityScreen.style.display = "none";
+
+        dashboard.style.display = "block";
+
+        loadDashboard();
+
+    }
+
+
+    /* =========================
+       CHECK OWNER CODE
+       ========================= */
+
+    function checkCode() {
+
+        const enteredCode =
+            secretCode.value.trim();
+
+        if (enteredCode === OWNER_SECRET_CODE) {
+
+            openDashboard();
+
+        } else {
+
+            errorMessage.textContent =
+                "Incorrect security code.";
+
+            secretCode.value = "";
+
+            secretCode.focus();
+
+        }
+
+    }
+
+
+    accessButton.addEventListener(
+        "click",
+        checkCode
+    );
+
+
+    secretCode.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+                checkCode();
+            }
+
+        }
+    );
+
+
+    /* =========================
+       LOAD DASHBOARD
+       ========================= */
+
+    function loadDashboard() {
+
+        let requests = [];
+
+        try {
+
+            requests = JSON.parse(
+                localStorage.getItem(
+                    "veloraBookingRequests"
+                )
+            ) || [];
+
+        } catch (error) {
+
+            console.error(
+                "BOOKING DATA ERROR:",
+                error
+            );
+
+            requests = [];
+
+        }
+
+
+        updateStatistics(requests);
+
+        displayRequests(requests);
+
+    }
+
+
+    /* =========================
+       UPDATE STATISTICS
+       ========================= */
+
+    function updateStatistics(requests) {
+
+        /*
+         * TOTAL CARS
+         */
+
+        document.getElementById(
+            "total-cars"
+        ).textContent =
+            String(TOTAL_CARS).padStart(2, "0");
+
+
+        /*
+         * REQUEST COUNT
+         */
+
+        document.getElementById(
+            "request-count"
+        ).textContent =
+            String(requests.length).padStart(2, "0");
+
+
+        /*
+         * REVENUE
+         *
+         * Only PAID / CONFIRMED bookings
+         * are counted.
+         */
+
+        let revenue = 0;
+
+
+        requests.forEach(function(request) {
+
+            const status =
+                String(
+                    request.status || ""
+                ).toUpperCase();
+
+
+            const paymentStatus =
+                String(
+                    request.paymentStatus || ""
+                ).toUpperCase();
+
+
+            if (
+                status === "PAID" ||
+                status === "CONFIRMED" ||
+                paymentStatus === "PAID"
+            ) {
+
+                revenue += Number(
+                    request.total || 0
+                );
+
+            }
+
+        });
+
+
+        document.getElementById(
+            "revenue"
+        ).textContent =
+            "₹" +
+            revenue.toLocaleString("en-IN");
+
+
+        /*
+         * AVAILABLE CARS
+         *
+         * Each different car with an active
+         * booking occupies one car.
+         *
+         * PENDING and REJECTED bookings
+         * do not reduce availability.
+         */
+
+        const occupiedCars =
+            new Set();
+
+
+        requests.forEach(function(request) {
+
+            const status =
+                String(
+                    request.status || ""
+                ).toUpperCase();
+
+
+            const paymentStatus =
+                String(
+                    request.paymentStatus || ""
+                ).toUpperCase();
+
+
+            const isActive =
+                status === "APPROVED" ||
+                status === "PAID" ||
+                status === "CONFIRMED" ||
+                paymentStatus === "PAID";
+
+
+            if (
+                isActive &&
+                request.carName
+            ) {
+
+                occupiedCars.add(
+                    String(
+                        request.carName
+                    )
+                    .trim()
+                    .toLowerCase()
+                );
+
+            }
+
+        });
+
+
+        const availableCars =
+            Math.max(
+                0,
+                TOTAL_CARS -
+                occupiedCars.size
+            );
+
+
+        document.getElementById(
+            "available-cars"
+        ).textContent =
+            String(
+                availableCars
+            ).padStart(2, "0");
+
+    }
+
+
+    /* =========================
+       DISPLAY REQUESTS
+       ========================= */
+
+    function displayRequests(requests) {
+
+        const container =
+            document.getElementById(
+                "requests-container"
+            );
+
+
+        if (requests.length === 0) {
+
+            container.innerHTML = `
+                <div class="no-requests">
+                    No booking requests yet.
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML = "";
+
+
+        requests
+            .slice()
+            .reverse()
+            .forEach(function(request) {
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "request-card";
+
+
+                const status =
+                    String(
+                        request.status ||
+                        "PENDING"
+                    ).toUpperCase();
+
+
+                let statusClass =
+                    "pending";
+
+
+                if (
+                    status === "APPROVED"
+                ) {
+
+                    statusClass =
+                        "approved";
+
+                }
+
+
+                if (
+                    status === "PAID" ||
+                    status === "CONFIRMED"
+                ) {
+
+                    statusClass =
+                        "paid";
+
+                }
+
+
+                if (
+                    status === "REJECTED"
+                ) {
+
+                    statusClass =
+                        "rejected";
+
+                }
+
+
+                const total =
+                    Number(
+                        request.total || 0
+                    );
+
+
+                const paymentStatus =
+                    String(
+                        request.paymentStatus ||
+                        ""
+                    ).toUpperCase();
+
+
+                const paymentText =
+                    paymentStatus === "PAID"
+                    ? "PAID ✓"
+                    : "NOT PAID";
+
+
+                card.innerHTML = `
+
+                    <div class="request-header">
+
+                        <div>
+
+                            <h3>
+                                ${escapeHTML(
+                                    request.customerName ||
+                                    "Customer"
+                                )}
+                            </h3>
+
+                            <div class="booking-id">
+                                ${escapeHTML(
+                                    request.bookingId ||
+                                    "NO BOOKING ID"
+                                )}
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="status ${statusClass}"
+                        >
+                            ${status}
+                        </div>
+
+                    </div>
+
+
+                    <div class="request-details">
+
+
+                        <div class="detail">
+
+                            <span class="detail-label">
+                                CAR
+                            </span>
+
+                            <span class="detail-value">
+                                ${escapeHTML(
+                                    request.carName ||
+                                    "—"
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span class="detail-label">
+                                PICKUP
+                            </span>
+
+                            <span class="detail-value">
+                                ${escapeHTML(
+                                    request.pickup ||
+                                    "—"
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span class="detail-label">
+                                DROP
+                            </span>
+
+                            <span class="detail-value">
+                                ${escapeHTML(
+                                    request.drop ||
+                                    "—"
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span class="detail-label">
+                                FROM DATE
+                            </span>
+
+                            <span class="detail-value">
+                                ${escapeHTML(
+                                    request.fromDate ||
+                                    "—"
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span class="detail-label">
+                                TO DATE
+                            </span>
+
+                            <span class="detail-value">
+                                ${escapeHTML(
+                                    request.toDate ||
+                                    "—"
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span class="detail-label">
+                                TOTAL
+                            </span>
+
+                            <span class="detail-value">
+                                ₹${total.toLocaleString("en-IN")}
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span class="detail-label">
+                                PAYMENT
+                            </span>
+
+                            <span class="detail-value">
+                                ${paymentText}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    ${
+                        status === "PENDING"
+                        ? `
+
+                        <div class="request-actions">
+
+                            <button
+                                class="approve-btn"
+                                onclick="approveRequest('${escapeAttribute(
+                                    request.bookingId
+                                )}')"
+                            >
+                                APPROVE REQUEST
+                            </button>
+
+
+                            <button
+                                class="reject-btn"
+                                onclick="rejectRequest('${escapeAttribute(
+                                    request.bookingId
+                                )}')"
+                            >
+                                REJECT REQUEST
+                            </button>
+
+                        </div>
+
+                        `
+                        : ""
+                    }
+
+                `;
+
+
+                container.appendChild(
+                    card
+                );
+
+            });
+
+    }
+
+
+    /* =========================
+       APPROVE
+       ========================= */
+
+    function approveRequest(
+        bookingId
+    ) {
+
+        updateRequestStatus(
+            bookingId,
+            "APPROVED"
+        );
+
+    }
+
+
+    /* =========================
+       REJECT
+       ========================= */
+
+    function rejectRequest(
+        bookingId
+    ) {
+
+        updateRequestStatus(
+            bookingId,
+            "REJECTED"
+        );
+
+    }
+
+
+    /* =========================
+       UPDATE STATUS
+       ========================= */
+
+    function updateRequestStatus(
+        bookingId,
+        newStatus
+    ) {
+
+        let requests = [];
+
+        try {
+
+            requests = JSON.parse(
+                localStorage.getItem(
+                    "veloraBookingRequests"
+                )
+            ) || [];
+
+        } catch (error) {
+
+            requests = [];
+
+        }
+
+
+        requests =
+            requests.map(
+                function(request) {
+
+                    if (
+                        request.bookingId ===
+                        bookingId
+                    ) {
+
+                        request.status =
+                            newStatus;
+
+                        request.updatedAt =
+                            new Date()
+                            .toISOString();
+
+                    }
+
+                    return request;
+
+                }
+            );
+
+
+        localStorage.setItem(
+            "veloraBookingRequests",
+            JSON.stringify(
+                requests
+            )
+        );
+
+
+        /*
+         * Update current customer booking
+         */
+
+        const currentBooking =
+            localStorage.getItem(
+                "veloraBooking"
+            );
+
+
+        if (currentBooking) {
+
+            try {
+
+                const booking =
+                    JSON.parse(
+                        currentBooking
+                    );
+
+
+                if (
+                    booking.bookingId ===
+                    bookingId
+                ) {
+
+                    booking.status =
+                        newStatus;
+
+                    booking.updatedAt =
+                        new Date()
+                        .toISOString();
+
+
+                    localStorage.setItem(
+                        "veloraBooking",
+                        JSON.stringify(
+                            booking
+                        )
+                    );
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "CURRENT BOOKING ERROR:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        loadDashboard();
+
+    }
+
+
+    /* =========================
+       HTML SECURITY
+       ========================= */
+
+    function escapeHTML(
+        value
+    ) {
+
+        return String(value)
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+    function escapeAttribute(
+        value
+    ) {
+
+        return String(value)
+            .replace(
+                /\\/g,
+                "\\\\"
+            )
+            .replace(
+                /'/g,
+                "\\'"
+            );
+
+    }
+
+</script>
+
+</body>
+</html>

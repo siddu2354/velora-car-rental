@@ -1,0 +1,122 @@
+@'
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>VELORA — Premium Car Rental</title>
+
+  <link
+    rel="stylesheet"
+    href="/src/style.css"
+  >
+
+  <style>
+    /* =========================================
+       OWNER PANEL BUTTON
+       ========================================= */
+
+    #owner-panel-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+
+      z-index: 9999;
+
+      padding: 11px 18px;
+
+      background: rgba(0, 0, 0, 0.65);
+      color: #d4af37;
+
+      border: 1px solid #d4af37;
+      border-radius: 4px;
+
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+
+      letter-spacing: 2px;
+      text-transform: uppercase;
+
+      text-decoration: none;
+
+      cursor: pointer;
+
+      transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    #owner-panel-button:hover {
+      background: #d4af37;
+      color: #000;
+
+      transform: translateY(-2px);
+
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25);
+    }
+
+    #owner-panel-button:active {
+      transform: translateY(0);
+    }
+  </style>
+
+</head>
+
+
+<body>
+
+  <!-- =========================================
+       OWNER PANEL
+       ========================================= -->
+
+  <a
+    id="owner-panel-button"
+    href="/owner.html"
+  >
+    Owner Panel
+  </a>
+
+
+  <!-- =========================================
+       VELORA TITLE
+       ========================================= -->
+
+  <h1 id="hero-title">
+    VELORA
+  </h1>
+
+
+  <!-- =========================================
+       REGISTER NOW BUTTON
+       ========================================= -->
+
+  <a
+    id="register-button"
+    href="/register.html"
+  >
+    Register Now
+  </a>
+
+
+  <!-- =========================================
+       THREE.JS MAIN SCRIPT
+       ========================================= -->
+
+  <script
+    type="module"
+    src="/src/main.js"
+  ></script>
+
+</body>
+
+</html>
+'@ | Set-Content .\index.html
