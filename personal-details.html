@@ -1,211 +1,138 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>VELORA — Booking Details</title>
-
     <link rel="stylesheet" href="/src/personal-details.css">
 </head>
-
 <body>
 
-    <!-- =========================
-         TOP BAR
-    ========================= -->
-
     <header class="topbar">
-
-        <div class="logo">
-            VELORA
-        </div>
-
+        <a href="/cars.html" class="logo">VELORA</a>
         <div class="topbar-right">
-
-            <span id="customer-name">
-                Hello, Customer
-            </span>
-
-            <button id="logout-btn">
-                Logout
-            </button>
-
+            <span id="customer-name">Customer</span>
+            <a href="/cars.html" class="back-link">BACK TO CARS</a>
         </div>
-
     </header>
 
+    <main class="page-container">
 
-    <!-- =========================
-         MAIN CONTENT
-    ========================= -->
-
-    <main class="details-page">
-
-        <!-- LEFT SIDE -->
-
-        <section class="customer-section">
-
-            <p class="eyebrow">
-                CUSTOMER DETAILS
-            </p>
-
-            <h1 id="customer-title">
-                Customer
-            </h1>
-
+        <section class="car-section">
+            <p class="eyebrow">YOUR RESERVATION</p>
+            <h1>Complete Your<br>Booking.</h1>
             <p class="description">
-                Provide the required details to continue with your VELORA booking.
+                Just a few details before your next driving experience.
             </p>
-
-
-            <!-- SELECTED VEHICLE -->
 
             <div class="selected-vehicle">
+                <p class="vehicle-label">SELECTED VEHICLE</p>
+                <h2 id="car-name">Your Selected Car</h2>
 
-                <p class="vehicle-label">
-                    SELECTED VEHICLE
-                </p>
+                <div class="car-image-box">
+                    <img id="car-image" src="" alt="Selected car">
+                </div>
 
-                <h2 id="car-name">
-                    Toyota Fortuner
-                </h2>
-
-                <p id="car-price">
-                    ₹4,500 / day
-                </p>
-
+                <div class="price-display">
+                    <span>PRICE PER DAY</span>
+                    <strong id="car-price">₹0</strong>
+                </div>
             </div>
 
+            <div class="booking-overview">
+                <h3>BOOKING SUMMARY</h3>
+
+                <div class="overview-row">
+                    <span>Pickup Date</span>
+                    <strong id="pickup-date">--</strong>
+                </div>
+
+                <div class="overview-row">
+                    <span>Drop Date</span>
+                    <strong id="drop-date">--</strong>
+                </div>
+
+                <div class="overview-row">
+                    <span>Total Days</span>
+                    <strong id="total-days">--</strong>
+                </div>
+
+                <div class="overview-row total-row">
+                    <span>Total Amount</span>
+                    <strong id="total-amount">₹0</strong>
+                </div>
+            </div>
         </section>
 
+        <section class="form-section">
+            <div class="form-card">
+                <p class="form-eyebrow">PERSONAL INFORMATION</p>
+                <h2 class="form-heading">Your Details</h2>
+                <p class="form-description">
+                    Enter your information to submit your booking request.
+                </p>
 
-        <!-- RIGHT SIDE -->
+                <form id="personal-details-form">
 
-        <section class="form-card">
+                    <div class="form-group">
+                        <label for="full-name">Full Name</label>
+                        <input type="text" id="full-name"
+                            placeholder="Enter your full name" required>
+                    </div>
 
-            <p class="form-eyebrow">
-                BOOKING INFORMATION
-            </p>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone"
+                            placeholder="Enter your phone number" required>
+                    </div>
 
-            <h2>
-                Your details.
-            </h2>
+                    <div class="form-group">
+                        <label for="license">Driving Licence Number</label>
+                        <input type="text" id="license"
+                            placeholder="Enter driving licence number" required>
+                    </div>
 
-            <p class="form-description">
-                Enter the required information before sending your booking request.
-            </p>
+                    <div class="form-group">
+                        <label for="pan">PAN Number</label>
+                        <input type="text" id="pan"
+                            placeholder="Enter PAN number" required>
+                    </div>
 
+                    <div class="location-heading">
+                        PICKUP & DROP DETAILS
+                    </div>
 
-            <!-- FORM -->
+                    <div class="form-group">
+                        <label for="pickup">Pickup Location</label>
+                        <input type="text" id="pickup"
+                            placeholder="Enter pickup location" required>
+                    </div>
 
-            <form id="personal-details-form">
+                    <div class="form-group">
+                        <label for="drop">Drop Location</label>
+                        <input type="text" id="drop"
+                            placeholder="Enter drop location" required>
+                    </div>
 
-                <!-- DRIVING LICENCE -->
+                    <button type="submit" class="continue-button">
+                        SUBMIT BOOKING REQUEST →
+                    </button>
 
-                <div class="form-group">
+                    <p id="form-message" class="form-message"></p>
 
-                    <label for="license">
-                        DRIVING LICENCE NUMBER
-                    </label>
+                    <div class="form-footer">
+                        <a href="/cars.html" class="back-button">
+                            ← BACK TO CARS
+                        </a>
+                    </div>
 
-                    <input
-                        type="text"
-                        id="license"
-                        placeholder="Enter driving licence number"
-                        autocomplete="off"
-                        required
-                    >
-
-                </div>
-
-
-                <!-- PAN -->
-
-                <div class="form-group">
-
-                    <label for="pan">
-                        PAN CARD NUMBER
-                    </label>
-
-                    <input
-                        type="text"
-                        id="pan"
-                        placeholder="Enter PAN card number"
-                        maxlength="10"
-                        autocomplete="off"
-                        required
-                    >
-
-                </div>
-
-
-                <!-- PICKUP -->
-
-                <div class="form-group">
-
-                    <label for="pickup">
-                        PICKUP POINT
-                    </label>
-
-                    <input
-                        type="text"
-                        id="pickup"
-                        placeholder="Enter pickup location"
-                        required
-                    >
-
-                </div>
-
-
-                <!-- DROP -->
-
-                <div class="form-group">
-
-                    <label for="drop">
-                        DROP POINT
-                    </label>
-
-                    <input
-                        type="text"
-                        id="drop"
-                        placeholder="Enter drop location"
-                        required
-                    >
-
-                </div>
-
-
-                <!-- CONTINUE -->
-
-                <button
-                    type="submit"
-                    class="continue-button"
-                >
-                    CONTINUE TO BOOKING
-                </button>
-
-            </form>
-
-
-            <!-- BACK -->
-
-            <button
-                type="button"
-                id="back-btn"
-                class="back-button"
-            >
-                ← BACK TO BOOKING
-            </button>
-
+                </form>
+            </div>
         </section>
 
     </main>
 
-
-    <script src="/src/personal-details.js"></script>
-
+    <script type="module" src="/src/personal-details.js"></script>
 </body>
-
 </html>

@@ -1,382 +1,236 @@
-/* ==========================================
-   VELORA � PERSONAL / BOOKING DETAILS
-   ========================================== */
 
-const customerNameElement = document.getElementById("customer-name");
-const customerTitleElement = document.getElementById("customer-title");
+document.addEventListener("DOMContentLoaded", function () {
 
-const carNameElement = document.getElementById("car-name");
-const carPriceElement = document.getElementById("car-price");
+    // ELEMENTS
+    const customerNameElement = document.getElementById("customer-name");
 
-const licenseInput = document.getElementById("license");
-const panInput = document.getElementById("pan");
-const pickupInput = document.getElementById("pickup");
-const dropInput = document.getElementById("drop");
+    const carNameElement = document.getElementById("car-name");
+    const carPriceElement = document.getElementById("car-price");
+    const carImage = document.getElementById("car-image");
 
-const form = document.getElementById("personal-details-form");
-const backButton = document.getElementById("back-btn");
-const logoutButton = document.getElementById("logout-btn");
+    const pickupDateElement = document.getElementById("pickup-date");
+    const dropDateElement = document.getElementById("drop-date");
+    const totalDaysElement = document.getElementById("total-days");
+    const totalAmountElement = document.getElementById("total-amount");
 
+    const form = document.getElementById("personal-details-form");
+    const fullNameInput = document.getElementById("full-name");
+    const phoneInput = document.getElementById("phone");
+    const licenseInput = document.getElementById("license");
+    const panInput = document.getElementById("pan");
+    const pickupInput = document.getElementById("pickup");
+    const dropInput = document.getElementById("drop");
 
-/* ==========================================
-   LOAD CUSTOMER
-   ========================================== */
+    const message = document.getElementById("form-message");
+    const submitButton = form.querySelector('button[type="submit"]');
 
-const storedUser = localStorage.getItem("veloraUser");
-
-if (!storedUser) {
-
-    window.location.href = "/register.html";
-
-} else {
-
-    try {
-
-        const user = JSON.parse(storedUser);
-
-        const name = user.name || "Customer";
-
-        customerNameElement.textContent = `Hello, ${name}`;
-        customerTitleElement.textContent = name;
-
-    } catch (error) {
-
-        console.error("VELORA USER ERROR:", error);
-
-        window.location.href = "/register.html";
+    // STORAGE HELPER
+    function readStorage(key) {
+        try {
+            return JSON.parse(localStorage.getItem(key));
+        } catch (error) {
+            console.error("Storage error:", error);
+            return null;
+        }
     }
-}
 
+    function money(value) {
+        return "₹" + Number(value || 0).toLocaleString("en-IN");
+    }
 
-/* ==========================================
-   LOAD SELECTED CAR
-   ========================================== */
+    function formatDate(value) {
+        if (!value) return "--";
 
-const storedCar = localStorage.getItem("veloraSelectedCar");
+        const date = new Date(value);
 
-if (!storedCar) {
+        if (Number.isNaN(date.getTime())) return value;
 
-    window.location.href = "/cars.html";
+        return date.toLocaleDateString("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        });
+    }
 
-} else {
+    // CUSTOMER DETAILS
+    const user = readStorage("veloraUser");
 
-    try {
+    if (!user) {
+        window.location.href = "/register.html";
+        return;
+    }
 
-        const selectedCar = JSON.parse(storedCar);
+    const customerName = user.name || user.fullName || "Customer";
 
-        const carName = selectedCar.name || "Selected Car";
-        const price = Number(selectedCar.price || 0);
+    customerNameElement.textContent = "Hello, " + customerName;
+    fullNameInput.value = customerName;
 
-        carNameElement.textContent = carName;
+    if (user.phone) {
+        phoneInput.value = user.phone;
+    }
 
-        carPriceElement.textContent =
-            `?${price.toLocaleString("en-IN")} / day`;
+    // SELECTED CAR
+    const selectedCar = readStorage("veloraSelectedCar");
 
-    } catch (error) {
-
-        console.error("VELORA CAR ERROR:", error);
-
+    if (!selectedCar) {
+        alert("Please select a car first.");
         window.location.href = "/cars.html";
-    }
-}
-
-
-/* ==========================================
-   PAN FORMATTING
-   ========================================== */
-
-panInput.addEventListener("input", function () {
-
-    this.value = this.value
-        .toUpperCase()
-        .replace(/[^A-Z0-9]/g, "")
-        .slice(0, 10);
-
-});
-
-
-/* ==========================================
-   LICENCE FORMATTING
-   ========================================== */
-
-licenseInput.addEventListener("input", function () {
-
-    this.value = this.value
-        .toUpperCase()
-        .replace(/[^A-Z0-9 -]/g, "");
-
-});
-
-
-/* ==========================================
-   DATE OVERLAP CHECK
-   ========================================== */
-
-function datesOverlap(start1, end1, start2, end2) {
-
-    const firstStart = new Date(start1);
-    const firstEnd = new Date(end1);
-
-    const secondStart = new Date(start2);
-    const secondEnd = new Date(end2);
-
-    return (
-        firstStart <= secondEnd &&
-        secondStart <= firstEnd
-    );
-}
-
-
-/* ==========================================
-   SUBMIT BOOKING REQUEST
-   ========================================== */
-
-form.addEventListener("submit", function (event) {
-
-    event.preventDefault();
-
-
-    /* ==========================================
-       GET FORM VALUES
-       ========================================== */
-
-    const licence =
-        licenseInput.value.trim().toUpperCase();
-
-    const pan =
-        panInput.value.trim().toUpperCase();
-
-    const pickup =
-        pickupInput.value.trim();
-
-    const drop =
-        dropInput.value.trim();
-
-
-    /* ==========================================
-       REQUIRED FIELD CHECK
-       ========================================== */
-
-    if (!licence || !pan || !pickup || !drop) {
-
-        alert("Please fill in all the required details.");
-
         return;
     }
 
+    const carName = selectedCar.name || selectedCar.carName || "Selected Car";
 
-    /* ==========================================
-       PAN VALIDATION
-       ========================================== */
+    const rawPrice =
+        selectedCar.price || selectedCar.pricePerDay || 0;
 
-    const panPattern =
-        /^[A-Z]{5}[0-9]{4}[A-Z]$/;
+    const pricePerDay =
+        Number(String(rawPrice).replace(/[₹,\s]/g, "")) || 0;
 
-    if (!panPattern.test(pan)) {
+    carNameElement.textContent = carName;
+    carPriceElement.textContent = money(pricePerDay);
 
-        alert("Please enter a valid PAN card number.");
+    // CAR IMAGE
+    const imageSource =
+        selectedCar.image ||
+        selectedCar.imageUrl ||
+        selectedCar.photo ||
+        selectedCar.img ||
+        "";
 
-        panInput.focus();
-
-        return;
+    if (imageSource) {
+        carImage.src = imageSource;
+    } else {
+        carImage.hidden = true;
     }
 
+    // BOOKING DETAILS
+    const booking = readStorage("veloraBooking") || {};
 
-    /* ==========================================
-       PICKUP / DROP CHECK
-       ========================================== */
-
-    if (
-        pickup.toLowerCase() ===
-        drop.toLowerCase()
-    ) {
-
-        alert("Pickup and drop points cannot be the same.");
-
-        dropInput.focus();
-
-        return;
-    }
-
-
-    /* ==========================================
-       LOAD USER
-       ========================================== */
-
-    let user;
-
-    try {
-
-        user =
-            JSON.parse(
-                localStorage.getItem("veloraUser")
-            );
-
-    } catch (error) {
-
-        alert("Customer information could not be loaded.");
-
-        window.location.href = "/register.html";
-
-        return;
-    }
-
-
-    if (!user || !user.name) {
-
-        alert("Please register again.");
-
-        window.location.href = "/register.html";
-
-        return;
-    }
-
-
-    /* ==========================================
-       LOAD SELECTED CAR
-       ========================================== */
-
-    let selectedCar = {};
-
-    try {
-
-        selectedCar =
-            JSON.parse(
-                localStorage.getItem("veloraSelectedCar")
-            ) || {};
-
-    } catch (error) {
-
-        selectedCar = {};
-    }
-
-
-    const selectedCarName =
-        selectedCar.name ||
-        carNameElement.textContent.trim();
-
-
-    const selectedCarPrice =
-        Number(selectedCar.price || 0);
-
-
-    /* ==========================================
-       LOAD EXISTING BOOKING
-       ========================================== */
-
-    let booking = {};
-
-    try {
-
-        booking =
-            JSON.parse(
-                localStorage.getItem("veloraBooking")
-            ) || {};
-
-    } catch (error) {
-
-        booking = {};
-    }
-
-
-    const fromDate =
-        booking.fromDate || "";
-
-    const toDate =
-        booking.toDate || "";
-
+    const fromDate = booking.fromDate || "";
+    const toDate = booking.toDate || "";
 
     if (!fromDate || !toDate) {
-
-        alert(
-            "Please select your rental dates before continuing."
-        );
-
+        alert("Please select your rental dates first.");
         window.location.href = "/car-details.html";
-
         return;
     }
 
+    const start = new Date(fromDate);
+    const end = new Date(toDate);
 
-    /* ==========================================
-       LOAD EXISTING REQUESTS
-       ========================================== */
+    const calculatedDays = Math.max(
+        1,
+        Math.ceil((end - start) / (1000 * 60 * 60 * 24))
+    );
 
-    let requests = [];
+    const days = Number(booking.days) || calculatedDays;
 
-    try {
+    const finalPricePerDay =
+        Number(booking.pricePerDay || booking.price) || pricePerDay;
 
-        requests =
-            JSON.parse(
-                localStorage.getItem(
-                    "veloraBookingRequests"
-                )
-            ) || [];
+    const total =
+        Number(booking.total) || finalPricePerDay * days;
 
-    } catch (error) {
+    pickupDateElement.textContent = formatDate(fromDate);
+    dropDateElement.textContent = formatDate(toDate);
+    totalDaysElement.textContent =
+        days + (days === 1 ? " Day" : " Days");
 
-        requests = [];
+    totalAmountElement.textContent = money(total);
+
+    // PAN INPUT FORMATTING
+    panInput.addEventListener("input", function () {
+        this.value = this.value
+            .toUpperCase()
+            .replace(/[^A-Z0-9]/g, "")
+            .slice(0, 10);
+    });
+
+    // LICENCE INPUT FORMATTING
+    licenseInput.addEventListener("input", function () {
+        this.value = this.value
+            .toUpperCase()
+            .slice(0, 25);
+    });
+
+    // DATE OVERLAP CHECK
+    function datesOverlap(aStart, aEnd, bStart, bEnd) {
+        return (
+            new Date(aStart) <= new Date(bEnd) &&
+            new Date(bStart) <= new Date(aEnd)
+        );
     }
 
+    // SUBMIT BOOKING
+    form.addEventListener("submit", function (event) {
 
-    /* ==========================================
-       CAR AVAILABILITY CHECK
-       
-       IMPORTANT:
-       Phone, PAN and licence are NOT checked.
+        event.preventDefault();
 
-       Only the SAME CAR with OVERLAPPING
-       rental dates is considered unavailable.
-       ========================================== */
+        message.textContent = "";
 
-    const conflictingRequest =
-        requests.find(function (request) {
+        const name = fullNameInput.value.trim();
+        const phone = phoneInput.value.trim();
+        const licence = licenseInput.value.trim().toUpperCase();
+        const pan = panInput.value.trim().toUpperCase();
+        const pickup = pickupInput.value.trim();
+        const drop = dropInput.value.trim();
 
-            if (!request) {
-                return false;
-            }
+        // VALIDATION
+        if (!name || !phone || !licence || !pan || !pickup || !drop) {
+            message.textContent = "Please complete all fields.";
+            return;
+        }
 
+        if (!/^[A-Z]{5}[0-9]{4}[A-Z]$/.test(pan)) {
+            message.textContent = "Please enter a valid PAN format.";
+            panInput.focus();
+            return;
+        }
 
-            /* Same car? */
+        if (licence.length < 5) {
+            message.textContent = "Please enter a valid driving licence number.";
+            licenseInput.focus();
+            return;
+        }
+
+        if (!/^[0-9+\-\s]{10,15}$/.test(phone)) {
+            message.textContent = "Please enter a valid phone number.";
+            phoneInput.focus();
+            return;
+        }
+
+        if (pickup.toLowerCase() === drop.toLowerCase()) {
+            message.textContent =
+                "Pickup and drop locations must be different.";
+            dropInput.focus();
+            return;
+        }
+
+        // READ EXISTING REQUESTS
+        let requests = readStorage("veloraBookingRequests");
+
+        if (!Array.isArray(requests)) {
+            requests = [];
+        }
+
+        // CHECK CAR AVAILABILITY
+        const conflict = requests.find(function (request) {
+
+            if (!request) return false;
 
             const sameCar =
-                String(request.carName || "")
-                    .trim()
-                    .toLowerCase() ===
-                String(selectedCarName)
-                    .trim()
-                    .toLowerCase();
+                String(request.carName || "").toLowerCase().trim() ===
+                carName.toLowerCase().trim();
 
-
-            if (!sameCar) {
-                return false;
-            }
-
-
-            /* Rejected bookings do NOT block the car. */
-
-            const status =
-                String(request.status || "")
-                    .trim()
-                    .toUpperCase();
-
-
-            if (status === "REJECTED") {
-                return false;
-            }
-
-
-            /* Need valid dates. */
+            if (!sameCar) return false;
 
             if (
-                !request.fromDate ||
-                !request.toDate
+                String(request.status || "").toUpperCase() === "REJECTED"
             ) {
                 return false;
             }
 
-
-            /* Check date overlap. */
+            if (!request.fromDate || !request.toDate) return false;
 
             return datesOverlap(
                 fromDate,
@@ -384,164 +238,72 @@ form.addEventListener("submit", function (event) {
                 request.fromDate,
                 request.toDate
             );
-
         });
 
+        if (conflict) {
+            message.textContent =
+                "This car already has a booking request for these dates.";
+            return;
+        }
 
-    /* ==========================================
-       CAR NOT AVAILABLE
-       ========================================== */
+        // CREATE BOOKING REQUEST
+        const newBooking = {
 
-    if (conflictingRequest) {
+            bookingId: "VL" + Date.now().toString().slice(-8),
 
-        alert(
-            `Sorry, ${selectedCarName} is already unavailable for the selected dates.\n\n` +
-            `Please choose another car or select different dates.`
-        );
+            customerName: name,
+            phone: phone,
 
-        return;
-    }
+            carName: carName,
+            pricePerDay: finalPricePerDay,
 
+            fromDate: fromDate,
+            toDate: toDate,
+            days: days,
+            total: total,
 
-    /* ==========================================
-       CREATE BOOKING ID
-       ========================================== */
+            // Do not store actual identity numbers in this prototype.
+            licenceNumber: "Provided",
+            panNumber: "Provided",
 
-    const bookingId =
-        "VL" +
-        Date.now()
-            .toString()
-            .slice(-8);
+            pickup: pickup,
+            drop: drop,
 
+            status: "PENDING",
+            requestedAt: new Date().toISOString()
+        };
 
-    /* ==========================================
-       CALCULATE PRICE
-       ========================================== */
+        // SAVE BOOKING
+        try {
 
-    const pricePerDay =
-        Number(
-            booking.pricePerDay ||
-            booking.price ||
-            selectedCarPrice ||
-            0
-        );
+            localStorage.setItem(
+                "veloraBooking",
+                JSON.stringify(newBooking)
+            );
 
+            requests.push(newBooking);
 
-    const days =
-        Number(booking.days || 1);
+            localStorage.setItem(
+                "veloraBookingRequests",
+                JSON.stringify(requests)
+            );
 
+        } catch (error) {
 
-    const total =
-        Number(
-            booking.total ||
-            pricePerDay * days
-        );
+            console.error("Booking save error:", error);
 
+            message.textContent =
+                "Unable to save booking. Please try again.";
 
-    /* ==========================================
-       CREATE COMPLETE BOOKING
-       ========================================== */
+            return;
+        }
 
-    const newBooking = {
+        // SUCCESS
+        submitButton.disabled = true;
+        submitButton.textContent = "SUBMITTING...";
 
-        bookingId: bookingId,
+        window.location.href = "/request-submitted.html";
 
-        customerName: user.name,
-
-        phone: user.phone || "",
-
-        carName: selectedCarName,
-
-        pricePerDay: pricePerDay,
-
-        fromDate: fromDate,
-
-        toDate: toDate,
-
-        days: days,
-
-        total: total,
-
-        licenceNumber: licence,
-
-        panNumber: pan,
-
-        pickup: pickup,
-
-        drop: drop,
-
-        status: "PENDING",
-
-        requestedAt:
-            new Date().toISOString()
-
-    };
-
-
-    /* ==========================================
-       SAVE CUSTOMER BOOKING
-       ========================================== */
-
-    localStorage.setItem(
-        "veloraBooking",
-        JSON.stringify(newBooking)
-    );
-
-
-    /* ==========================================
-       SAVE OWNER REQUEST
-       ========================================== */
-
-    requests.push(newBooking);
-
-    localStorage.setItem(
-        "veloraBookingRequests",
-        JSON.stringify(requests)
-    );
-
-
-    /* ==========================================
-       GO TO REQUEST PAGE
-       ========================================== */
-
-    window.location.href =
-        "/request-submitted.html";
-
-});
-
-
-/* ==========================================
-   BACK BUTTON
-   ========================================== */
-
-backButton.addEventListener("click", function () {
-
-    window.location.href =
-        "/car-details.html";
-
-});
-
-
-/* ==========================================
-   LOGOUT
-   ========================================== */
-
-logoutButton.addEventListener("click", function () {
-
-    localStorage.removeItem("veloraUser");
-
-    localStorage.removeItem(
-        "veloraSelectedCar"
-    );
-
-    localStorage.removeItem(
-        "veloraBooking"
-    );
-
-    localStorage.removeItem(
-        "veloraBookingRequests"
-    );
-
-    window.location.href = "/";
+    });
 
 });

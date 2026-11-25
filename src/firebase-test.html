@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>VELORA Firebase Test</title>
+</head>
+<body>
+  <h1>VELORA Firebase Connection Test</h1>
+  <p id="status">Testing connection...</p>
+
+  <script type="module">
+    import { auth, db, storage } from "./firebase.js";
+
+    document.getElementById("status").textContent =
+      "Firebase modules initialized successfully!";
+
+    console.log("Firebase Auth:", auth);
+    console.log("Firestore:", db);
+    console.log("Storage:", storage);
+  </script>
+</body>
+</html>

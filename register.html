@@ -1,77 +1,139 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>VELORA — Register</title>
-
     <link rel="stylesheet" href="/src/register.css">
 </head>
-
 <body>
 
-    <main class="register-page">
+    <main class="auth-container">
 
-        <div class="register-logo">
-            VELORA
-        </div>
+        <!-- LEFT SIDE: VELORA BRANDING -->
+        <section class="brand-panel">
+            <div class="brand-content">
+                <div class="brand-symbol">V</div>
+                <h1>VELORA</h1>
+                <p class="brand-subtitle">PREMIUM CAR RENTAL</p>
 
-        <section class="register-card">
+                <div class="brand-divider"></div>
 
-            <p class="eyebrow">
-                START YOUR JOURNEY
-            </p>
+                <p class="brand-tagline">Drive your dreams.</p>
+                <p class="brand-description">
+                    Experience a new standard of luxury,
+                    comfort and freedom.
+                </p>
+            </div>
 
-            <h1>
-                Register<br>
-                Now.
-            </h1>
+            <div class="brand-footer">
+                REFINED JOURNEYS. EXCEPTIONAL EXPERIENCES.
+            </div>
+        </section>
 
-            <p class="description">
-                Create your customer profile to continue with your
-                VELORA car rental.
-            </p>
+        <!-- RIGHT SIDE: REGISTRATION -->
+        <section class="form-panel">
+            <div class="form-wrapper">
 
-            <form id="register-form">
-
-                <div class="form-group">
-                    <label for="name">CUSTOMER NAME</label>
-
-                    <input
-                        type="text"
-                        id="name"
-                        placeholder="Enter your name"
-                        required
-                    >
+                <div class="form-heading">
+                    <span class="eyebrow">WELCOME TO VELORA</span>
+                    <h2>Create your account</h2>
+                    <p>Join us and experience premium travel.</p>
                 </div>
 
-                <div class="form-group">
-                    <label for="phone">PHONE NUMBER</label>
+                <form id="register-form">
 
-                    <input
-                        type="tel"
-                        id="phone"
-                        placeholder="Enter your phone number"
-                        maxlength="10"
-                        inputmode="numeric"
-                        required
-                    >
+                    <!-- STEP 1 -->
+                    <div id="basic-fields" class="form-step">
+
+                        <div class="input-group">
+                            <label for="name">FULL NAME</label>
+                            <input type="text" id="name"
+                                   placeholder="Enter your full name" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="phone">PHONE NUMBER</label>
+                            <input type="tel" id="phone"
+                                   placeholder="10-digit mobile number"
+                                   maxlength="10" required>
+                        </div>
+
+                        <button type="button" id="continue-button"
+                                class="primary-button">
+                            CONTINUE <span>→</span>
+                        </button>
+                    </div>
+
+                    <!-- STEP 2 -->
+                    <div id="account-fields" class="form-step" hidden>
+
+                        <div class="input-group">
+                            <label for="email">EMAIL ADDRESS</label>
+                            <input type="email" id="email"
+                                   placeholder="Enter your email address" required>
+                        </div>
+
+                        <!-- CUSTOMER AND OWNER PARTITION -->
+                        <div class="account-type-section">
+                            <label class="section-label">SELECT ACCOUNT TYPE</label>
+
+                            <div class="account-type-options">
+
+                                <button type="button"
+                                        class="account-card selected"
+                                        data-role="customer">
+
+                                    <span class="account-icon">C</span>
+                                    <span class="account-title">Customer</span>
+                                    <span class="account-description">
+                                        Discover and book premium cars.
+                                    </span>
+                                    <span class="selection-indicator">✓</span>
+                                </button>
+
+                                <button type="button"
+                                        class="account-card"
+                                        data-role="owner">
+
+                                    <span class="account-icon">O</span>
+                                    <span class="account-title">Owner</span>
+                                    <span class="account-description">
+                                        List and manage your vehicles.
+                                    </span>
+                                    <span class="selection-indicator">✓</span>
+                                </button>
+
+                            </div>
+                        </div>
+
+                        <div class="button-row">
+                            <button type="button" id="back-button"
+                                    class="secondary-button">
+                                ← BACK
+                            </button>
+
+                            <button type="submit" id="register-button"
+                                    class="primary-button">
+                                CONTINUE <span>→</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <p id="register-message" class="message"></p>
+                </form>
+
+                <div class="form-footer">
+                    <span>SECURE REGISTRATION</span>
+                    <span>VELORA © 2026</span>
                 </div>
 
-                <button type="submit">
-                    CONTINUE
-                </button>
-
-            </form>
-
+            </div>
         </section>
 
     </main>
 
     <script type="module" src="/src/register.js"></script>
-
 </body>
-
 </html>
